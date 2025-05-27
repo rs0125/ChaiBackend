@@ -7,7 +7,6 @@ const authRoutes = require("./routes/authRoutes");
 
 app.get("/", (req, res) => {
     res.send("Sales Dashboard here");
-
 });
 
 app.use("/dash", dashRoutes);
