@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const dashRoutes = require("./routes/dashRoutes");
 const authRoutes = require("./routes/authRoutes");
+app.use(express.json());
+
 
 
 app.get("/", (req, res) => {

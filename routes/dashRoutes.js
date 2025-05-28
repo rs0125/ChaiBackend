@@ -1,14 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-// Route handlers
-router.use("/inventory", (req, res) => {
-    res.send("All inventory items");
-});
+const InventoryController = require("../controllers/InventoryController");
 
-router.use("/saleslog", (req, res) => {
-    res.send("All inventory items");
-});
+
+router
+    .route("/inventory")
+    .get(InventoryController.list)
+    .post(InventoryController.add)
+    .delete(InventoryController.remove)
+
+
+
+router
+    .route("/saleslog")
+    .get((req, res) => {
+        res.send("All inventory items")
+    })
 
 
 module.exports = router;
