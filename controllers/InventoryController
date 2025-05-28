@@ -32,3 +32,26 @@ exports.remove = (req, res) => {
         res.status(201).json({ message: "Item removed successfully" });
     });
 };
+
+exports.bulkUpdate = (req, res) => {
+    const items = req.body.items; // expecting [{ id: 1, quantity: 20 }, ...]
+    if (!Array.isArray(items)) {
+        return res.status(400).send("Invalid input. Expecting an array of items.");
+    }
+
+    let completed = 0;
+    let hasError = false;
+
+    items.forEach(({ id, quantity }) => {
+        Inventory.updateQuantity(id, quantity, (err) => {
+            if (err && !hasError) {
+                hasError = true;
+                return res.status(500).send(`Error updating item ID ${id}: ${err.message}`);
+            }
+            completed++;
+            if (completed === items.length && !hasError) {
+                res.send("All quantities updated successfully.");
+            }
+        });
+    });
+};

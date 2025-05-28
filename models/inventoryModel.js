@@ -20,4 +20,20 @@ function removeItem(id, callback) {
     );
 }
 
-module.exports = { getAllInventory, addItem, removeItem };
+function updateQuantity(id, quantity, callback) {
+    db.run(
+        "UPDATE inventory SET quantity = ? WHERE id = ?",
+        [quantity, id],
+        function (err) {
+            if (err) return callback(err);
+            if (this.changes === 0) {
+                return callback(new Error(`Item with ID ${id} does not exist.`));
+            }
+            callback(null);
+        }
+    );
+}
+
+
+
+module.exports = { getAllInventory, addItem, removeItem, updateQuantity };

@@ -10,3 +10,15 @@ db.serialize(() => {
         )
     `);
 });
+
+db.serialize(() => {
+    db.run(`
+    CREATE TABLE IF NOT EXISTS saleslog (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    message TEXT NOT NULL,
+    type TEXT CHECK(type IN ('incoming', 'outgoing', 'weekly update')) NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    `);
+});

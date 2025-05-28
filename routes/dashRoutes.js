@@ -3,20 +3,22 @@ const router = express.Router();
 
 const InventoryController = require("../controllers/InventoryController");
 
+const LogController = require("../controllers/LogController");
+
 
 router
     .route("/inventory")
     .get(InventoryController.list)
     .post(InventoryController.add)
     .delete(InventoryController.remove)
+    .put(InventoryController.bulkUpdate)
 
 
 
 router
     .route("/saleslog")
-    .get((req, res) => {
-        res.send("All inventory items")
-    })
+    .get(LogController.list)
+    .post(LogController.add)
 
 
 module.exports = router;
